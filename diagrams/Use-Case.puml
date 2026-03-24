@@ -1,0 +1,39 @@
+@startuml
+title Minecraft Skin Editor
+
+left to right direction
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #EEF2FF
+  BorderColor #534AB7
+  FontColor #26215C
+  ArrowColor #534AB7
+}
+skinparam actor {
+  BackgroundColor #E1F5EE
+  BorderColor #0F6E56
+  FontColor #04342C
+}
+
+actor Bruger as User
+
+rectangle "Skin Editor" {
+  usecase "Tegn skin" as UC1
+  usecase "Skift farve" as UC2
+  usecase "Fyld med farve" as UC3
+  usecase "Juster linjetykkelse" as UC4
+  usecase "Download skin" as UC5
+  usecase "Se forhåndsvisning" as UC6
+  usecase "Roter forhåndsvisning" as UC7
+}
+
+User --> UC1
+User --> UC2
+User --> UC5
+User --> UC6
+
+UC2 ..> UC3 : <<include>>
+UC2 ..> UC4 : <<include>>
+UC6 ..> UC7 : <<extend>>
+
+@enduml

@@ -1,8 +1,10 @@
+package app;
+
 import app.config.SessionConfig;
 import app.config.ThymeleafConfig;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinThymeleaf;
-
+public class Main{
 public static void main(String[] args)
 {
     // Initializing Javalin and Jetty webserver
@@ -16,4 +18,4 @@ public static void main(String[] args)
     // Routing
 
     app.get("/", ctx ->  ctx.render("index.html"));
-}
+}}
