@@ -15,7 +15,7 @@ public static void main(String[] args)
 
     // Routing
 
-    Test
+    Dette er en test
 
     app.get("/", ctx ->  ctx.render("index.html"));
 }
