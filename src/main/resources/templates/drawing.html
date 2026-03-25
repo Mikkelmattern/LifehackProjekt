@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixel Editor</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/app.js" defer></script>
+</head>
+<body>
+<main class="app">
+    <section class="panel">
+        <h1>Pixel Editor</h1>
+        <canvas id="editorCanvas"></canvas>
+    </section>
+
+    <section class="controls">
+        <label>
+            Farve
+            <input type="color" id="colorInput" value="#009578" />
+        </label>
+
+        <label>
+            Tool
+            <select id="toolSelect">
+                <option value="pencil">Blyant</option>
+                <option value="eraser">Viskelæder</option>
+            </select>
+        </label>
+
+        <label>
+            <input type="checkbox" id="toggleGrid" checked />
+            Vis grid
+        </label>
+
+        <button id="clearButton" type="button">Ryd</button>
+    </section>
+</main>
+</body>
+</html>
