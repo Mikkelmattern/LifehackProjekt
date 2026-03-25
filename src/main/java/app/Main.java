@@ -18,7 +18,7 @@ public static void main(String[] args) {
 
 
     Javalin app = Javalin.create(config -> {
-        config.staticFiles.add("/public");
+        config.staticFiles.add("/static");
         config.jetty.modifyServletContextHandler(handler -> handler.setSessionHandler(SessionConfig.sessionConfig()));
         config.fileRenderer(new JavalinThymeleaf(ThymeleafConfig.templateEngine()));
     }).start(7070);
