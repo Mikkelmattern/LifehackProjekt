@@ -5,6 +5,7 @@ const colorInput = document.getElementById("colorInput");
 const toolSelect = document.getElementById("toolSelect");
 const toggleGrid = document.getElementById("toggleGrid");
 const clearButton = document.getElementById("clearButton");
+const app = document.querySelectorAll(".app")
 
 const SKIN_WIDTH = 16;
 const SKIN_HEIGHT = 16;
@@ -15,6 +16,7 @@ editorCanvas.width = SKIN_WIDTH * PIXEL_SIZE;
 editorCanvas.height = SKIN_HEIGHT * PIXEL_SIZE;
 
 const skinCanvas = document.createElement("canvas");
+//Højden og breden på canvas
 skinCanvas.width = SKIN_WIDTH;
 skinCanvas.height = SKIN_HEIGHT;
 const skinCtx = skinCanvas.getContext("2d", { willReadFrequently: true });
@@ -23,6 +25,8 @@ skinCtx.clearRect(0, 0, SKIN_WIDTH, SKIN_HEIGHT);
 
 let isDrawing = false;
 let currentTool = "pencil";
+
+app.forEach(task => { task.addEventListener("click", event => {console.log(event.target)})})
 
 toolSelect.addEventListener("change", () => {
     currentTool = toolSelect.value;
