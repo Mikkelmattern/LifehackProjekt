@@ -26,6 +26,8 @@ section {
     overflow: hidden;
 }
 
+/* Images*/
+
 section .bg img {
     position: absolute;
     top: 50%;
@@ -49,5 +51,13 @@ section .bg img {
 .center-content img {
     width: 65%;
     z-index: 10;
-    filter: drop-shadow(0 20px 10px rgba(0,0,0,0.6));
+    filter: drop-shadow(0 20px 10px rgba(0, 0, 0, 0.6));
 }
+
+.logo, .layer {
+    -webkit-user-drag: none;
+    pointer-events: none;
+    user-select: none;
+}
+
+
