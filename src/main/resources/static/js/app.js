@@ -6,8 +6,8 @@ const toolSelect = document.getElementById("toolSelect");
 const toggleGrid = document.getElementById("toggleGrid");
 const clearButton = document.getElementById("clearButton");
 
-const SKIN_WIDTH = 16;
-const SKIN_HEIGHT = 16;
+const SKIN_WIDTH = 32
+const SKIN_HEIGHT = 32;
 
 const PIXEL_SIZE = 24;
 

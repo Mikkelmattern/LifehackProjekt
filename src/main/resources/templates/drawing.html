@@ -1,40 +1,66 @@
 <!DOCTYPE html>
-<html lang="da">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pixel Editor</title>
+    <title>Frontpage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
-    <script src="/js/app.js" defer></script>
 </head>
+
 <body>
-<main class="app">
-    <section class="panel">
-        <h1>Pixel Editor</h1>
-        <canvas id="editorCanvas"></canvas>
-    </section>
 
-    <section class="controls">
-        <label>
-            Farve
-            <input type="color" id="colorInput" value="#009578" />
-        </label>
+<audio id="bg-music" loop>
+    <source src="/audio/Minecraft.mp3" type="audio/mpeg">
+    Din browser understøtter ikke audio.
+</audio>
 
-        <label>
-            Tool
-            <select id="toolSelect">
-                <option value="pencil">Blyant</option>
-                <option value="eraser">Viskelæder</option>
-            </select>
-        </label>
+<section>
+    <div class="bg">
+        <img src="/images/Lifehackbackground.png" class="layer" data-score="-3" alt="Baggrund">
+    </div>
 
-        <label>
-            <input type="checkbox" id="toggleGrid" checked />
-            Vis grid
-        </label>
+    <div class="center-content">
+        <img src="/images/LifehackLogo.png" alt="Logo" class="logo">
 
-        <button id="clearButton" type="button">Ryd</button>
-    </section>
-</main>
+        <div class="editor-wrapper">
+            <div class="editor-panel">
+                <h2>Tegnebræt</h2>
+                <canvas id="editorCanvas"></canvas>
+            </div>
+
+            <div class="tool-panel">
+                <label for="colorInput">Farve</label>
+                <input type="color" id="colorInput" value="#009578">
+
+                <label for="toolSelect">Værktøj</label>
+                <select id="toolSelect">
+                    <option value="pencil">Blyant</option>
+                    <option value="eraser">Viskelæder</option>
+                </select>
+
+                <label class="checkbox-label">
+                    <input type="checkbox" id="toggleGrid" checked>
+                    Vis grid
+                </label>
+
+                <button id="clearButton" type="button">Ryd</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("mousemove", function (e) {
+        document.querySelectorAll(".layer").forEach(el => {
+            const score = parseFloat(el.getAttribute("data-score"));
+            const x = (window.innerWidth / 2 - e.pageX) * score / 100;
+            const y = (window.innerHeight / 2 - e.pageY) * score / 100;
+
+            el.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+        });
+    });
+</script>
+
+<script src="/js/app.js" defer></script>
 </body>
 </html>
