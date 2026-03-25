@@ -4,11 +4,36 @@
     <title>Frontpage</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../public/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
-<h1>Welcome to the Javalin / Thymeleaf demo</h1>
-<p>This is your first web application in this world</p>
+
+<audio id="bg-music" loop>
+    <source src="/audio/Minecraft.mp3" type="audio/mpeg">
+    Din browser understøtter ikke audio.
+</audio>
+
+<section>
+    <div class="bg">
+        <img src="/images/Lifehackbackground.png" class="layer" data-score="-3" alt="Baggrund">
+    </div>
+
+    <div class="center-content">
+        <img src="/images/LifehackLogo.png" alt="Logo">
+    </div>
+</section>
+
+<script>
+    document.addEventListener("mousemove", function (e) {
+        document.querySelectorAll(".layer").forEach(el => {
+            const score = parseFloat(el.getAttribute("data-score"));
+            const x = (window.innerWidth / 2 - e.pageX) * score / 100;
+            const y = (window.innerHeight / 2 - e.pageY) * score / 100;
+
+            el.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+        });
+    });
+</script>
 </body>
 </html>
