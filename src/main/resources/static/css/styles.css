@@ -43,10 +43,11 @@ section .bg img {
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
+    text-align: center;
 }
 
 .center-content img {
-    width: 650px;
+    width: 65%;
     z-index: 10;
     filter: drop-shadow(0 20px 10px rgba(0,0,0,0.6));
 }
