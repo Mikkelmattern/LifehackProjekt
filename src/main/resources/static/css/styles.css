@@ -48,4 +48,5 @@ section .bg img {
 .center-content img {
     width: 650px;
     z-index: 10;
+    filter: drop-shadow(0 20px 10px rgba(0,0,0,0.6));
 }
