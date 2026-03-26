@@ -237,6 +237,72 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function copyFlippedRegion(sourceX, sourceY, width, height, targetX, targetY) {
+        const sourceImage = skinCtx.getImageData(sourceX, sourceY, width, height);
+        const flippedImage = skinCtx.createImageData(width, height);
+
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const srcIndex = (y * width + x) * 4;
+                const dstX = width - 1 - x;
+                const dstIndex = (y * width + dstX) * 4;
+
+                flippedImage.data[dstIndex] = sourceImage.data[srcIndex];
+                flippedImage.data[dstIndex + 1] = sourceImage.data[srcIndex + 1];
+                flippedImage.data[dstIndex + 2] = sourceImage.data[srcIndex + 2];
+                flippedImage.data[dstIndex + 3] = sourceImage.data[srcIndex + 3];
+            }
+        }
+
+        skinCtx.putImageData(flippedImage, targetX, targetY);
+    }
+
+    /**
+     * This function mirrors both arms and legs.<p>
+     * **Right leg -> left leg:**
+     * -- Top
+     * -- Bottom
+     * -- Right side -> left side
+     * -- Front
+     * -- Left side -> right side
+     * -- Back -> back
+     * **Right arm -> left arm:**<p>
+     * -- Top
+     * -- Bottom
+     * -- Right side -> left side
+     * -- Front
+     * -- Left side -> right side
+     * -- Back -> back
+     *
+     */
+    function syncMirroredLimbs() {
+
+        copyFlippedRegion(4, 16, 4, 4, 20, 48);
+
+        copyFlippedRegion(8, 16, 4, 4, 24, 48);
+
+        copyFlippedRegion(0, 20, 4, 12, 24, 52);
+
+        copyFlippedRegion(4, 20, 4, 12, 20, 52);
+
+        copyFlippedRegion(8, 20, 4, 12, 16, 52);
+
+        copyFlippedRegion(12, 20, 4, 12, 28, 52);
+
+
+        copyFlippedRegion(44, 16, 4, 4, 36, 48);
+
+        copyFlippedRegion(48, 16, 4, 4, 40, 48);
+
+        copyFlippedRegion(40, 20, 4, 12, 40, 52);
+
+        copyFlippedRegion(44, 20, 4, 12, 36, 52);
+
+        copyFlippedRegion(48, 20, 4, 12, 32, 52);
+
+        copyFlippedRegion(52, 20, 4, 12, 44, 52);
+    }
+
     function renderPreview() {
         previewCtx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
         previewCtx.imageSmoothingEnabled = false;
@@ -355,6 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 skinCtx.clearRect(skinX, skinY, 1, 1);
             }
 
+            syncMirroredLimbs();
             renderAllEditors();
         }
 
@@ -456,6 +523,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     downloadButton.addEventListener("click", () => {
+        syncMirroredLimbs();
+
         const link = document.createElement("a");
         link.download = "minecraft-head-skin.png";
         link.href = skinCanvas.toDataURL("image/png");
@@ -480,6 +549,7 @@ document.addEventListener("DOMContentLoaded", () => {
     defaultSkin.onload = () => {
         skinCtx.clearRect(0, 0, skinCanvas.width, skinCanvas.height);
         skinCtx.drawImage(defaultSkin, 0, 0, 64, 64);
+        syncMirroredLimbs();
         renderAllEditors();
     };
 
