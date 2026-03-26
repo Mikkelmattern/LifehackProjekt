@@ -40,15 +40,18 @@ section .bg img {
 }
 
 .center-content {
-    position: absolute;
+    position: relative;
     top: 1%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
+    text-align: center;
+    width: 90%;
+    height: 95%;
 }
 
 .center-content img {
-    width: 650px;
+    width: 30%;
     z-index: 10;
     filter: drop-shadow(0 20px 10px rgba(0, 0, 0, 0.6));
 }
@@ -59,6 +62,89 @@ section .bg img {
     user-select: none;
 }
 
+.glassboxContainer {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    position: relative;
+    transform: translateY(-15%);
+
+}
+
+.glassbox {
+    overflow: visible;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#mainView, #options{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#mainView{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 80%;
+}
+
+#glassboxMain {
+    margin-right: 5%;
+    width: 50%;
+    height: 100%;
+}
+
+#glassboxSecondary {
+    width: 20%;
+    height: 100%;
+}
+
+#options{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 20%;
+}
+
+#glassboxMainOptions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    margin-right: 5%;
+    height: fit-content;
+    padding: 1%;
+    margin-left: 5%;
+}
+
+#glassboxSecondaryOptions{
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+    margin-left: 25%;
+}
+
+.bi {
+    margin: 0.7%;
+}
 
 
 .editor-wrapper {
@@ -109,3 +195,4 @@ section .bg img {
     image-rendering: pixelated;
     cursor: crosshair;
 }
+
