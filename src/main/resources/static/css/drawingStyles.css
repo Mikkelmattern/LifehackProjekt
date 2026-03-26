@@ -1,0 +1,223 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    overflow-x: hidden;
+}
+
+.page-section {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.bg {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -2;
+}
+
+.bg img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 110%;
+    min-height: 110%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+.page-section::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: -1;
+}
+
+.center-content {
+    width: min(1300px, 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.logo {
+    width: min(320px, 70vw);
+    height: auto;
+    display: block;
+}
+
+.editor-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.editor-surface {
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 28px;
+    border-radius: 28px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.editor-surface h2,
+.tool-panel h2 {
+    margin: 0;
+    text-align: center;
+    color: white;
+}
+
+.head-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.head-row {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.head-row-top {
+    justify-content: center;
+}
+
+.head-row-bottom {
+    justify-content: center;
+}
+
+.part-card {
+    background: rgba(255, 255, 255, 0.92);
+    padding: 16px;
+    border-radius: 18px;
+    text-align: center;
+    color: #222;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    min-width: 230px;
+}
+
+.part-card h3 {
+    margin: 0 0 12px 0;
+    font-size: 1rem;
+}
+
+.part-card canvas {
+    display: block;
+    background: white;
+    border-radius: 10px;
+    image-rendering: pixelated;
+    cursor: crosshair;
+    margin: 0 auto;
+}
+
+.tool-panel {
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 24px;
+    border-radius: 28px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.28);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 220px;
+}
+
+.tool-panel label {
+    color: white;
+    font-weight: bold;
+}
+
+.tool-panel input[type="color"],
+.tool-panel select,
+.tool-panel button {
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 1rem;
+}
+
+.tool-panel input[type="color"] {
+    height: 48px;
+    padding: 4px;
+    background: white;
+}
+
+.tool-panel select {
+    background: white;
+    color: #222;
+}
+
+.tool-panel button {
+    background: white;
+    color: #222;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: normal;
+    color: white;
+}
+
+.part-tile {
+    position: relative;
+    display: inline-block;
+}
+
+.part-tile canvas {
+    display: block;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    image-rendering: pixelated;
+    cursor: crosshair;
+}
+
+.part-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.22);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.preview-panel {
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 24px;
+    text-align: center;
+}
+
+#previewCanvas {
+    border-radius: 12px;
+    image-rendering: pixelated;
+}

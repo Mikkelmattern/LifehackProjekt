@@ -4,7 +4,9 @@
     <title>Frontpage</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/drawingStyles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="/js/app.js" defer></script>
 </head>
 
 <body>
@@ -14,7 +16,7 @@
     Din browser understøtter ikke audio.
 </audio>
 
-<section>
+<section class="page-section">
     <div class="bg">
         <img src="/images/Lifehackbackground.png" class="layer" data-score="-3" alt="Baggrund">
     </div>
@@ -23,18 +25,59 @@
         <img src="/images/LifehackLogo.png" alt="Logo" class="logo">
 
         <div class="editor-wrapper">
-            <div class="editor-panel">
-                <h2>Tegnebræt</h2>
-                <canvas id="editorCanvas"></canvas>
+
+            <div class="editor-surface">
+                <h2 class="editor-title">Rediger hoved</h2>
+
+                <div class="head-editor">
+
+                    <div class="head-row head-row-top">
+                        <div class="part-tile">
+                            <canvas id="headTopCanvas"></canvas>
+                            <span class="part-label">Top</span>
+                        </div>
+
+                        <div class="part-tile">
+                            <canvas id="headBottomCanvas"></canvas>
+                            <span class="part-label">Buttom</span>
+                        </div>
+                    </div>
+
+                    <div class="head-row head-row-bottom">
+
+                        <div class="part-tile">
+                            <canvas id="headRightCanvas"></canvas>
+                            <span class="part-label">Right</span>
+                        </div>
+
+                        <div class="part-tile">
+                            <canvas id="headFrontCanvas"></canvas>
+                            <span class="part-label">Front</span>
+                        </div>
+
+                        <div class="part-tile">
+                            <canvas id="headLeftCanvas"></canvas>
+                            <span class="part-label">Left</span>
+                        </div>
+
+                        <div class="part-tile">
+                            <canvas id="headBackCanvas"></canvas>
+                            <span class="part-label">Back</span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
             <div class="tool-panel">
+                <h2 class="tool-title">Værktøjer</h2>
+
                 <label for="colorInput">Farve</label>
-                <input type="color" id="colorInput" value="#009578">
+                <input type="color" id="colorInput" value="#000000">
 
                 <label for="toolSelect">Værktøj</label>
                 <select id="toolSelect">
-                    <option value="pencil">Blyant</option>
+                    <option value="pencil">&#9998</option>
                     <option value="eraser">Viskelæder</option>
                 </select>
 
@@ -43,8 +86,23 @@
                     Vis grid
                 </label>
 
-                <button id="clearButton" type="button">Ryd</button>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="toggleLabels" checked>
+                    Vis flade-navne
+                </label>
+
+                <button id="clearButton" type="button">
+                    <i class="bi bi-amazon"></i>
+                </button>
+
+                <button id="downloadButton" type="button">Download PNG</button>
             </div>
+
+            <div class="preview-panel">
+                <h2>Preview</h2>
+                <canvas id="previewCanvas"></canvas>
+            </div>
+
         </div>
     </div>
 </section>
@@ -61,6 +119,5 @@
     });
 </script>
 
-<script src="/js/app.js" defer></script>
 </body>
 </html>
