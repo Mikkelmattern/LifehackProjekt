@@ -2,12 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("app.js loaded");
 
     const colorInput = document.getElementById("colorInput");
-    const toolSelect = document.getElementById("toolSelect");
     const toggleGrid = document.getElementById("toggleGrid");
     const toggleLabels = document.getElementById("toggleLabels");
     const clearButton = document.getElementById("clearButton");
     const downloadButton = document.getElementById("downloadButton");
     const previewCanvas = document.getElementById("previewCanvas");
+
+    const eraserTool = document.querySelector(".bi-eraser-fill");
+    const pencilTool = document.querySelector(".bi-pencil-fill");
+
+    let toolSelect = "pencil";
 
     if (!colorInput || !toolSelect || !toggleGrid || !toggleLabels || !clearButton || !downloadButton || !previewCanvas) {
         console.error("ERROR: Could not find all elements in HTML...");
@@ -30,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const currentState = {
         color: colorInput.value,
-        tool: toolSelect.value,
+        tool: toolSelect,
         showGrid: toggleGrid.checked
     };
 
@@ -429,9 +433,13 @@ document.addEventListener("DOMContentLoaded", () => {
         currentState.color = colorInput.value;
     });
 
-    toolSelect.addEventListener("change", () => {
-        currentState.tool = toolSelect.value;
+    eraserTool.addEventListener("click", () => {
+        currentState.tool = "eraser";
     });
+
+    pencilTool.addEventListener("click", () => {
+        currentState.tool = "pencil";
+    })
 
     toggleGrid.addEventListener("change", () => {
         currentState.showGrid = toggleGrid.checked;
