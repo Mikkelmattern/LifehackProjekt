@@ -1,29 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("app.js loaded");
 
-    const colorInput = document.getElementById("colorInput");
-    const toggleGrid = document.getElementById("toggleGrid");
-    const toggleLabels = document.getElementById("toggleLabels");
-    const clearButton = document.getElementById("clearButton");
-    const downloadButton = document.getElementById("downloadButton");
     const previewCanvas = document.getElementById("previewCanvas");
 
-    const eraserTool = document.querySelector(".bi-eraser-fill");
+    const eraserTool = document.querySelector(".bi-eraser");
     const pencilTool = document.querySelector(".bi-pencil-fill");
+    const palette = document.querySelector(".bi-palette-fill");
+    const paintBucket = document.querySelector(".bi-paint-bucket")
+    const toggleGrid = document.querySelector(".bi-grid-3x2-gap-fill");
+    const toggleLabels = document.querySelector(".bi-fonts");
+    const clearButton = document.querySelector(".bi-trash");
+    const downloadButton = document.querySelector(".bi-download");
+    let volumeButton = document.querySelector(".bi-volume-up-fill");
+    const partTile = document.querySelectorAll(".head")
+
+
+    const colorPicker = document.createElement("input")
+    colorPicker.type = "color"
+    colorPicker.style.display = "none"
+    document.body.appendChild(colorPicker);
 
     let toolSelect = "pencil";
 
-    if (!colorInput || !toolSelect || !toggleGrid || !toggleLabels || !clearButton || !downloadButton || !previewCanvas) {
+    /*
+    if (!toolSelect || !toggleGrid || !toggleLabels || !clearButton || !downloadButton || !previewCanvas) {
         console.error("ERROR: Could not find all elements in HTML...");
         return;
     }
+     */
 
     const previewCtx = previewCanvas.getContext("2d");
 
     const skinCanvas = document.createElement("canvas");
     skinCanvas.width = 64;
     skinCanvas.height = 64;
-    const skinCtx = skinCanvas.getContext("2d", { willReadFrequently: true });
+    const skinCtx = skinCanvas.getContext("2d", {willReadFrequently: true});
 
     const PIXEL_SIZE = 24;
     const SCALE = 6;
@@ -33,9 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
     previewCanvas.height = 32 * PREVIEW_SCALE;
 
     const currentState = {
-        color: colorInput.value,
+        color: "#000000",
         tool: toolSelect,
-        showGrid: toggleGrid.checked
     };
 
     const HEAD_PARTS = {
@@ -298,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const canvas = document.getElementById(part.canvasId);
 
         if (!canvas) {
-            console.error("ERROR: Could not find canvas with id: ${part.canvasId}...");
+            console.error(`ERROR: Could not find canvas with id: ${part.canvasId}...`);
             return null;
         }
 
@@ -334,14 +344,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const mouseX = event.clientX - rect.left;
             const mouseY = event.clientY - rect.top;
 
-            const localX = Math.floor(mouseX / PIXEL_SIZE);
-            const localY = Math.floor(mouseY / PIXEL_SIZE);
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+
+            const localX = Math.floor((mouseX * scaleX) / PIXEL_SIZE);
+            const localY = Math.floor((mouseY * scaleY) / PIXEL_SIZE);
 
             if (localX < 0 || localX >= part.w || localY < 0 || localY >= part.h) {
                 return null;
             }
 
-            return { localX, localY };
+            return {localX, localY};
         }
 
         function paint(event) {
@@ -356,7 +369,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 skinCtx.fillStyle = currentState.color;
                 skinCtx.fillRect(skinX, skinY, 1, 1);
             } else if (currentState.tool === "eraser") {
-                skinCtx.clearRect(skinX, skinY, 1, 1);
+                skinCtx.fillStyle = "#ffffff"
+                skinCtx.fillRect(skinX, skinY, 1, 1);
             }
 
             renderAllEditors();
@@ -377,7 +391,7 @@ document.addEventListener("DOMContentLoaded", () => {
             isDrawing = false;
         });
 
-        return { render };
+        return {render};
     }
 
     function renderAllEditors() {
@@ -395,7 +409,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         renderAllEditors();
     }
-
+/*
     function setupTorsoEditors() {
         Object.values(TORSO_PARTS).forEach(part => {
             const editor = createPartEditor(part);
@@ -427,19 +441,47 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         renderAllEditors();
-    }
+    }*/
 
-    colorInput.addEventListener("input", () => {
-        currentState.color = colorInput.value;
-    });
-
-    eraserTool.addEventListener("click", () => {
+    eraserTool.addEventListener("click", (e) => {
         currentState.tool = "eraser";
+        if (pencilTool.classList.contains("bi-pencil-fill")) {
+            pencilTool.classList.remove("bi-pencil-fill")
+            pencilTool.classList.add("bi-pencil")
+        }
+        e.target.classList.remove("bi-eraser")
+        e.target.classList.add("bi-eraser-fill")
     });
 
-    pencilTool.addEventListener("click", () => {
+    pencilTool.addEventListener("click", (e) => {
         currentState.tool = "pencil";
+        if (eraserTool.classList.contains("bi-eraser-fill")) {
+            eraserTool.classList.remove("bi-eraser-fill")
+            eraserTool.classList.add("bi-eraser")
+        }
+        e.target.classList.remove("bi-pencil")
+        e.target.classList.add("bi-pencil-fill")
     })
+
+    colorPicker.addEventListener("change", (e) => {
+        currentState.color = e.target.value;
+    })
+
+    palette.addEventListener("click", (event) => {
+        colorPicker.click();
+        console.log(event.target)
+    })
+
+    volumeButton.addEventListener("click", (e) => {
+        if (e.target.classList.contains("bi-volume-up-fill")) {
+            e.target.classList.remove("bi-volume-up-fill");
+            e.target.classList.add("bi-volume-mute-fill")
+        } else if (e.target.classList.contains("bi-volume-mute-fill")) {
+            e.target.classList.add("bi-volume-up-fill");
+            e.target.classList.remove("bi-volume-mute-fill")
+        }
+    })
+
 
     toggleGrid.addEventListener("change", () => {
         currentState.showGrid = toggleGrid.checked;
@@ -457,11 +499,19 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!confirmed) return;
 
         Object.values(HEAD_PARTS).forEach(part => {
-            skinCtx.clearRect(part.x, part.y, part.w, part.h);
+            skinCtx.fillStyle = "#ffffff"
+            skinCtx.fillRect(part.x, part.y, part.w, part.h);
         });
 
         renderAllEditors();
     });
+
+    paintBucket.addEventListener("click", () => {
+        console.log("click")
+        partTile.forEach(el => {
+            el.style.cursor = "url('/images/paint-bucket.png'), crosshair";
+        })
+    })
 
     downloadButton.addEventListener("click", () => {
         const link = document.createElement("a");
@@ -478,9 +528,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     setupHeadEditors();
+    /*
     setupTorsoEditors();
     setupArmEditors();
     setupLegEditors();
+     */
 
     const defaultSkin = new Image();
     defaultSkin.src = "/images/default-skin.png";

@@ -86,20 +86,20 @@ section .bg img {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-#mainView, #options{
+#mainView, #options {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
 }
 
-#mainView{
+#mainView {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
     width: 100%;
-    height: 100%;
+    height: 80%;
 }
 
 #glassboxMain {
@@ -114,8 +114,7 @@ section .bg img {
 }
 
 
-
-#options{
+#options {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -123,18 +122,18 @@ section .bg img {
     height: 20%;
 }
 
-#glassboxMainOptions{
+#glassboxMainOptions {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: fit-content;
+    width: 208px;
     margin-right: 5%;
-    height: fit-content;
+    height: 21px;
     padding: 1%;
     margin-left: 5%;
 }
 
-#glassboxSecondaryOptions{
+#glassboxSecondaryOptions {
     width: fit-content;
     height: fit-content;
     display: flex;
@@ -145,7 +144,12 @@ section .bg img {
 }
 
 .bi {
-    margin: 0.7%;
+    margin: 0.5%;
+}
+
+.bi:hover {
+    font-size: 1.3em;
+    cursor: pointer;
 }
 
 
@@ -364,17 +368,32 @@ body {
     color: white;
 }
 
-.part-tile {
-    position: relative;
-    display: inline-block;
-}
-
 .part-tile canvas {
     display: block;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 10px;
     image-rendering: pixelated;
     cursor: crosshair;
+}
+
+.part-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.part-label {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    font-size: 0.8em;
+    -webkit-user-drag: none;
+    pointer-events: none;
+    user-select: none;
 }
 
 
@@ -389,11 +408,11 @@ body {
 #previewCanvas {
     border-radius: 12px;
     image-rendering: pixelated;
-    width: 75%;
+    width: 45%;
     height: 75%;
 }
 
-.head{
+.head {
     width: 100px;
     height: 100px;
 }
