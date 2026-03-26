@@ -1,40 +1,123 @@
 <!DOCTYPE html>
-<html lang="da">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pixel Editor</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <title>Frontpage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/drawingStyles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <script src="/js/app.js" defer></script>
 </head>
+
 <body>
-<main class="app">
-    <section class="panel">
-        <h1>Pixel Editor</h1>
-        <canvas id="editorCanvas"></canvas>
-    </section>
 
-    <section class="controls">
-        <label>
-            Farve
-            <input type="color" id="colorInput" value="#009578" />
-        </label>
+<audio id="bg-music" loop>
+    <source src="/audio/Minecraft.mp3" type="audio/mpeg">
+    Din browser understøtter ikke audio.
+</audio>
 
-        <label>
-            Tool
-            <select id="toolSelect">
-                <option value="pencil">Blyant</option>
-                <option value="eraser">Viskelæder</option>
-            </select>
-        </label>
+<section class="page-section">
+    <div class="bg">
+        <img src="/images/Lifehackbackground.png" class="layer" data-score="-3" alt="Baggrund">
+    </div>
 
-        <label>
-            <input type="checkbox" id="toggleGrid" checked />
-            Vis grid
-        </label>
+    <div class="center-content">
+        <img src="/images/LifehackLogo.png" alt="Logo" class="logo">
 
-        <button id="clearButton" type="button">Ryd</button>
-    </section>
-</main>
+        <div class="editor-wrapper">
+
+            <div class="editor-surface">
+                <h2 class="editor-title">Rediger hoved</h2>
+
+                <div class="head-editor">
+
+                    <div class="head-row head-row-top">
+                        <div class="part-tile">
+                            <canvas id="headTopCanvas"></canvas>
+                            <span class="part-label">Top</span>
+                        </div>
+
+                        <div class="part-tile">
+                            <canvas id="headBottomCanvas"></canvas>
+                            <span class="part-label">Buttom</span>
+                        </div>
+                    </div>
+
+                    <div class="head-row head-row-bottom">
+
+                        <div class="part-tile">
+                            <canvas id="headRightCanvas"></canvas>
+                            <span class="part-label">Right</span>
+                        </div>
+
+                        <div class="part-tile">
+                            <canvas id="headFrontCanvas"></canvas>
+                            <span class="part-label">Front</span>
+                        </div>
+
+                        <div class="part-tile">
+                            <canvas id="headLeftCanvas"></canvas>
+                            <span class="part-label">Left</span>
+                        </div>
+
+                        <div class="part-tile">
+                            <canvas id="headBackCanvas"></canvas>
+                            <span class="part-label">Back</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="tool-panel">
+                <h2 class="tool-title">Værktøjer</h2>
+
+                <label for="colorInput">Farve</label>
+                <input type="color" id="colorInput" value="#000000">
+
+                <label for="toolSelect">Værktøj</label>
+                <select id="toolSelect">
+                    <option value="pencil">&#9998</option>
+                    <option value="eraser">Viskelæder</option>
+                </select>
+
+                <label class="checkbox-label">
+                    <input type="checkbox" id="toggleGrid" checked>
+                    Vis grid
+                </label>
+
+                <label class="checkbox-label">
+                    <input type="checkbox" id="toggleLabels" checked>
+                    Vis flade-navne
+                </label>
+
+                <button id="clearButton" type="button">
+                    <i class="bi bi-amazon"></i>
+                </button>
+
+                <button id="downloadButton" type="button">Download PNG</button>
+            </div>
+
+            <div class="preview-panel">
+                <h2>Preview</h2>
+                <canvas id="previewCanvas"></canvas>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("mousemove", function (e) {
+        document.querySelectorAll(".layer").forEach(el => {
+            const score = parseFloat(el.getAttribute("data-score"));
+            const x = (window.innerWidth / 2 - e.pageX) * score / 100;
+            const y = (window.innerHeight / 2 - e.pageY) * score / 100;
+
+            el.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
+        });
+    });
+</script>
+
 </body>
 </html>
