@@ -21,12 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
     skinCanvas.height = 64;
     const skinCtx = skinCanvas.getContext("2d", { willReadFrequently: true });
 
-const skinCanvas = document.createElement("canvas");
-//Højden og breden på canvas
-skinCanvas.width = SKIN_WIDTH;
-skinCanvas.height = SKIN_HEIGHT;
-const skinCtx = skinCanvas.getContext("2d", { willReadFrequently: true });
-
     const PIXEL_SIZE = 24;
     const SCALE = 6;
     const PREVIEW_SCALE = 15;
