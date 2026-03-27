@@ -25,7 +25,7 @@ public static void main(String[] args) {
 
     // Routing
 
-    app.get("", ctx -> ctx.render("drawing.html"));
+    app.get("", ctx -> ctx.render("index.html"));
 
     UserController.addRouts(app, connectionPool);
 }}

@@ -437,6 +437,10 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (currentState.tool === "eraser") {
                 skinCtx.fillStyle = "#ffffff"
                 skinCtx.fillRect(skinX, skinY, 1, 1);
+            } else if (currentState.tool === "paintbucket"){
+                const part = Object.values(HEAD_PARTS).find(p => p.canvasId === event.target.id)
+                skinCtx.fillStyle = currentState.color;
+                skinCtx.fillRect(part.x, part.y, part.w, part.h);
             }
 
             syncMirroredLimbs();
@@ -536,7 +540,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     palette.addEventListener("click", (event) => {
         colorPicker.click();
-        console.log(event.target)
     })
 
     volumeButton.addEventListener("click", (e) => {
@@ -573,12 +576,16 @@ document.addEventListener("DOMContentLoaded", () => {
         renderAllEditors();
     });
 
-    paintBucket.addEventListener("click", () => {
-        console.log("click")
+
+
+    paintBucket.addEventListener("click", (e) => {
+        currentState.tool = "paintbucket"
         partTile.forEach(el => {
             el.style.cursor = "url('/images/paint-bucket.png'), crosshair";
         })
     })
+
+
 
     downloadButton.addEventListener("click", () => {
         syncMirroredLimbs();
