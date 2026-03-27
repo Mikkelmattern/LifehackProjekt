@@ -547,9 +547,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target.classList.contains("bi-volume-up-fill")) {
             e.target.classList.remove("bi-volume-up-fill");
             e.target.classList.add("bi-volume-mute-fill")
+            music.muted = true;
         } else if (e.target.classList.contains("bi-volume-mute-fill")) {
             e.target.classList.add("bi-volume-up-fill");
             e.target.classList.remove("bi-volume-mute-fill")
+            music.muted = false;
         }
     })
 
