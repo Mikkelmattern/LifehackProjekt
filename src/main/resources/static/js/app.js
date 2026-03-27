@@ -515,6 +515,13 @@ document.addEventListener("DOMContentLoaded", () => {
             renderAllEditors();
         }*/
 
+    function renderToolCursor(){
+      const tool = currentState.tool
+        partTile.forEach(el => {
+            el.style.cursor = `url('/images/${tool}.png') 0 32, crosshair`;
+        })
+    }
+
     eraserTool.addEventListener("click", (e) => {
         currentState.tool = "eraser";
         if (pencilTool.classList.contains("bi-pencil-fill")) {
@@ -523,6 +530,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         e.target.classList.remove("bi-eraser")
         e.target.classList.add("bi-eraser-fill")
+        renderToolCursor()
     });
 
     pencilTool.addEventListener("click", (e) => {
@@ -533,6 +541,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         e.target.classList.remove("bi-pencil")
         e.target.classList.add("bi-pencil-fill")
+        renderToolCursor()
+
     })
 
     colorPicker.addEventListener("change", (e) => {
@@ -590,9 +600,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     paintBucket.addEventListener("click", (e) => {
         currentState.tool = "paintbucket"
-        partTile.forEach(el => {
-            el.style.cursor = "url('/images/paint-bucket.png'), crosshair";
-        })
+        renderToolCursor()
     })
 
 
