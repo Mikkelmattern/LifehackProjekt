@@ -437,7 +437,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (currentState.tool === "eraser") {
                 skinCtx.fillStyle = "#ffffff"
                 skinCtx.fillRect(skinX, skinY, 1, 1);
-            } else if (currentState.tool === "paintbucket"){
+            } else if (currentState.tool === "paintbucket") {
                 const part = Object.values(HEAD_PARTS).find(p => p.canvasId === event.target.id)
                 skinCtx.fillStyle = currentState.color;
                 skinCtx.fillRect(part.x, part.y, part.w, part.h);
@@ -480,39 +480,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
         renderAllEditors();
     }
-/*
-    function setupTorsoEditors() {
-        Object.values(TORSO_PARTS).forEach(part => {
-            const editor = createPartEditor(part);
-            if (editor) {
-                editors.push(editor);
-            }
-        });
 
-        renderAllEditors();
-    }
+    /*
+        function setupTorsoEditors() {
+            Object.values(TORSO_PARTS).forEach(part => {
+                const editor = createPartEditor(part);
+                if (editor) {
+                    editors.push(editor);
+                }
+            });
 
-    function setupArmEditors() {
-        Object.values(ARM_PARTS).forEach(part => {
-            const editor = createPartEditor(part);
-            if (editor) {
-                editors.push(editor);
-            }
-        });
+            renderAllEditors();
+        }
 
-        renderAllEditors();
-    }
+        function setupArmEditors() {
+            Object.values(ARM_PARTS).forEach(part => {
+                const editor = createPartEditor(part);
+                if (editor) {
+                    editors.push(editor);
+                }
+            });
 
-    function setupLegEditors() {
-        Object.values(LEG_PARTS).forEach(part => {
-            const editor = createPartEditor(part);
-            if (editor) {
-                editors.push(editor);
-            }
-        });
+            renderAllEditors();
+        }
 
-        renderAllEditors();
-    }*/
+        function setupLegEditors() {
+            Object.values(LEG_PARTS).forEach(part => {
+                const editor = createPartEditor(part);
+                if (editor) {
+                    editors.push(editor);
+                }
+            });
+
+            renderAllEditors();
+        }*/
 
     eraserTool.addEventListener("click", (e) => {
         currentState.tool = "eraser";
@@ -557,11 +558,19 @@ document.addEventListener("DOMContentLoaded", () => {
         currentState.showGrid = toggleGrid.checked;
         renderAllEditors();
     });
-
-    toggleLabels.addEventListener("change", () => {
-        document.querySelectorAll(".part-label").forEach(label => {
-            label.style.display = toggleLabels.checked ? "flex" : "none";
-        });
+    let on = true;
+    toggleLabels.addEventListener("click", () => {
+        if (on) {
+            on = !on;
+            document.querySelectorAll(".part-label").forEach(label => {
+                label.style.display = "none";
+            });
+        } else if (!on){
+            on = !on;
+            document.querySelectorAll(".part-label").forEach(label => {
+                label.style.display = "flex";
+            });
+        }
     });
 
     clearButton.addEventListener("click", () => {
@@ -577,14 +586,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-
     paintBucket.addEventListener("click", (e) => {
         currentState.tool = "paintbucket"
         partTile.forEach(el => {
             el.style.cursor = "url('/images/paint-bucket.png'), crosshair";
         })
     })
-
 
 
     downloadButton.addEventListener("click", () => {
