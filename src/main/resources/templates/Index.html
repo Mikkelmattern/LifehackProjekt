@@ -12,7 +12,6 @@
 
 <audio id="bg-music" loop>
     <source src="/audio/Minecraft.mp3" type="audio/mpeg">
-    Din browser understøtter ikke audio.
 </audio>
 
 <section>
@@ -102,6 +101,15 @@
             el.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
         });
     });
+
+    const music = document.getElementById("bg-music");
+
+    music.volume = 0.2;
+
+    document.addEventListener("click", () => {
+        music.muted = false;
+        music.play();
+    }, { once: true });
 </script>
 <script src="/js/app.js" defer></script>
 </body>
